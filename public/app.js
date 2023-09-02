@@ -23,7 +23,7 @@ const makeMove = (element, index) => {
 
         // Check for a win after each move
         if (checkWin()) {
-            result.textContent = `Player ${currentPlayer} wins!`;
+            result.textContent = `Player ${currentPlayer} Won 🎉`;
             disableAllButtons();
         } else if (cells.every((cell) => cell !== '')) {
             result.textContent = "It's a draw!";
