@@ -29,7 +29,7 @@ const makeMove = (element, index) => {
             result.textContent = "It's a draw!";
         } else {
             currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-            result.textContent = `Player ${currentPlayer}'s Turn`;
+            result.textContent = `Player ${currentPlayer} Turn`;
         }
     }
 };
@@ -56,7 +56,7 @@ const disableAllButtons = () => {
 const resetGame = () => {
     cells = ['', '', '', '', '', '', '', '', ''];
     currentPlayer = 'X';
-    result.textContent = `Player ${currentPlayer}'s Turn`;
+    result.textContent = `Player ${currentPlayer} Turn`;
 
     btns.forEach((btn, i) => {
         btn.textContent = '';
