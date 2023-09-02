@@ -1,66 +1,68 @@
+// Initial game state
+let cells = ['', '', '', '', '', '', '', '', ''];
 let currentPlayer = 'X';
-let gameBoard = ['', '', '', '', '', '', '', '', ''];
-const resultContainer = document.querySelector('.result');
-const buttons = document.querySelectorAll('.btn');
+let result = document.querySelector('.result');
+let btns = document.querySelectorAll('.btn');
+let conditions = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+];
 
-function checkWin() {
-    const winCombos = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6]
-    ];
+// Function to handle player moves
+const ticTacToe = (element, index) => {
+    if (cells[index] === '' && !checkWin()) {
+        cells[index] = currentPlayer;
+        element.textContent = currentPlayer;
+        element.disabled = true;
 
-    for (const combo of winCombos) {
-        const [a, b, c] = combo;
-        if (gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]) {
-            return gameBoard[a];
+        // Check for a win after each move
+        if (checkWin()) {
+            result.textContent = `Player ${currentPlayer} wins!`;
+            disableAllButtons();
+        } else if (cells.every((cell) => cell !== '')) {
+            result.textContent = "It's a draw!";
+        } else {
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            result.textContent = `Player ${currentPlayer}'s Turn`;
         }
     }
+};
 
-    if (gameBoard.includes('')) {
-        return null;
-    } else {
-        return 'Draw';
+// Function to check for a win
+const checkWin = () => {
+    for (const condition of conditions) {
+        const [a, b, c] = condition;
+        if (cells[a] && cells[a] === cells[b] && cells[a] === cells[c]) {
+            return true;
+        }
     }
-}
+    return false;
+};
 
-function updateResult() {
-    const winner = checkWin();
-
-    if (winner === 'X') {
-        resultContainer.textContent = 'Player X wins!';
-    } else if (winner === 'O') {
-        resultContainer.textContent = 'Player O wins!';
-    } else if (winner === 'Draw') {
-        resultContainer.textContent = "It's a draw!";
-    } else {
-        resultContainer.textContent = `Player ${currentPlayer}'s Turn`;
-    }
-}
-
-function makeMove(row, col) {
-    if (gameBoard[row * 3 + col] === '' && !checkWin()) {
-        gameBoard[row * 3 + col] = currentPlayer;
-        buttons[row * 3 + col].textContent = currentPlayer;
-        buttons[row * 3 + col].disabled = true;
-        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-        updateResult();
-    }
-}
-
-function resetGame() {
-    currentPlayer = 'X';
-    gameBoard = ['', '', '', '', '', '', '', '', ''];
-    buttons.forEach((button) => {
-        button.textContent = '';
-        button.disabled = false;
+// Function to disable all buttons
+const disableAllButtons = () => {
+    btns.forEach((btn) => {
+        btn.disabled = true;
     });
-    resultContainer.textContent = `Player ${currentPlayer}'s Turn`;
-}
+};
 
-updateResult();
+// Function to reset the game
+const resetGame = () => {
+    cells = ['', '', '', '', '', '', '', '', ''];
+    currentPlayer = 'X';
+    result.textContent = `Player ${currentPlayer}'s Turn`;
+
+    btns.forEach((btn, i) => {
+        btn.textContent = '';
+        btn.disabled = false;
+        btn.addEventListener('click', () => ticTacToe(btn, i));
+    });
+};
+
+document.querySelector('#reset').addEventListener('click', resetGame);

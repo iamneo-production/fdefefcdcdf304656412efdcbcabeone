@@ -2,9 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic Tac Toe</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to styles.css -->
+
+    <!-- Link the style.css and app.js files -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1 class="hl">Tic Tac Toe</h1>
@@ -29,8 +32,8 @@
         <p class="result">Player X's Turn</p>
     </div>
     <div class="reset">
-        <button class="reset-button" onclick="resetGame()">Reset</button>
+        <button class="reset-button" id="reset" onclick="resetGame()">Reset</button>
     </div>
-    <script src="app.js"></script> <!-- Link to app.js -->
+    <script src="app.js"></script>
 </body>
 </html>
