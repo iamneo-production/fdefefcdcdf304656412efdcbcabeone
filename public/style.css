@@ -83,6 +83,8 @@ body {
 /* Reset Styling */
 .reset {
     text-align: center;
+    background-color: white; /* Add this line to set the background color to white */
+    padding: 10px; /* Add padding for spacing */
 }
 
 /* Reset Button Styling */
