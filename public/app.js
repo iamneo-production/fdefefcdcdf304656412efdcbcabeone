@@ -15,7 +15,7 @@ let conditions = [
 ];
 
 // Function to handle player moves
-const ticTacToe = (element, index) => {
+const makeMove = (element, index) => {
     if (cells[index] === '' && !checkWin()) {
         cells[index] = currentPlayer;
         element.textContent = currentPlayer;
@@ -61,7 +61,7 @@ const resetGame = () => {
     btns.forEach((btn, i) => {
         btn.textContent = '';
         btn.disabled = false;
-        btn.addEventListener('click', () => ticTacToe(btn, i));
+        btn.addEventListener('click', () => makeMove(btn, i));
     });
 };
 
